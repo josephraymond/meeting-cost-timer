@@ -12,19 +12,19 @@ var Timer = React.createClass({
       people: [
         {
           id: 1,
-          person: 'Joey',
+          person: 'Person 1',
           costPerHour: 60,
           isInMeeting: true
         },
         {
           id: 2,
-          person: 'Graham',
-          costPerHour: 60,
+          person: 'Person 2',
+          costPerHour: 80,
           isInMeeting: true
         },
         {
           id: 3,
-          person: 'Nick',
+          person: 'Person 3',
           costPerHour: 60,
           isInMeeting: false
         }
@@ -37,10 +37,12 @@ var Timer = React.createClass({
       switch (this.state.timerStatus) {
         case 'started':
           this.startTimer();
-          this.calculateCost(this.state.people);
           break;
         case 'stopped':
-          this.setState({count: 0});
+          this.setState({
+            count: 0,
+            cost: 0
+          });
         case 'paused':
           clearInterval(this.timer);
           this.timer = undefined;
@@ -60,22 +62,19 @@ var Timer = React.createClass({
     });
   },
 
-  calculateCost: function (people) {
-    var totalCostPerHour = people.reduce(function (prev, curr) {
+  calculateCost: function () {
+    var totalCostPerHour = this.state.people.reduce(function (prev, curr) {
       return prev + curr.costPerHour;
     }, 0);
     var totalCostPerSecond = totalCostPerHour / 3600;
-
-    this.setState({
-      cost: totalCostPerSecond
-    });
+    return totalCostPerSecond;
   },
 
   startTimer: function () {
     this.timer = setInterval(() => {
       this.setState({
         count: this.state.count + 1,
-        cost: this.state.cost + 1
+        cost: this.state.cost + this.calculateCost()
       });
     }, 1000);
   },

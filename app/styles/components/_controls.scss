@@ -1,6 +1,10 @@
 .controls {
+  position: absolute;;
+  bottom: 5rem;
+  width: 100%;
   display: flex;
   justify-content: center;
+  z-index: 1;
 
   .button {
     padding: 0.75rem 3rem;

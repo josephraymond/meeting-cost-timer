@@ -1,16 +1,26 @@
 var React = require('react');
 
 var Calculator = React.createClass({
+  getDefaultProps: function () {
+    totalCost: 0
+  },
+
   propTypes: {
-    totalCost: React.PropTypes.number.isRequired
+    totalCost: React.PropTypes.number
+  },
+
+  formatCost: function (totalCost) {
+    return parseFloat(Math.round(totalCost * 100) / 100).toFixed(2);
   },
 
   render: function () {
+    var {totalCost} = this.props;
+
     return (
-      <div>
-        <h1>
+      <div className="calculator">
+        <h1 className="calculator-text">
           <sup>$</sup>
-          {this.props.totalCost}
+          {this.formatCost(totalCost)}
         </h1>
       </div>
     )
