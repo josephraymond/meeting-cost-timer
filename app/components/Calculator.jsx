@@ -20,7 +20,7 @@ var Calculator = React.createClass({
       <div className="calculator">
         <h1 className="calculator-text">
           <sup>$</sup>
-          {this.formatCost(totalCost)}
+          <span>{this.formatCost(totalCost)}</span>
         </h1>
       </div>
     )
